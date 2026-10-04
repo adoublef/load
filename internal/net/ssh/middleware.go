@@ -1,6 +1,8 @@
 package ssh
 
 import (
+	"fmt"
+
 	"charm.land/ssh"
 	"charm.land/wish/v2"
 )
@@ -8,6 +10,7 @@ import (
 func Middleware( /* args */ ) wish.Middleware {
 	return func(f ssh.Handler) ssh.Handler {
 		return func(s ssh.Session) {
+			fmt.Fprintf(s, "Hello, world!\n")
 			f(s)
 		}
 	}
