@@ -1,0 +1,27 @@
+# -------------------------------------------------------------
+# Docker context allowlist (Ignore everything, allow build files)
+# -------------------------------------------------------------
+
+# 1. Ignore everything by default to keep build context minimal
+*
+
+# 2. Re-include directories
+!*/
+
+# 3. Re-include only what the Docker build requires
+!go.mod
+!go.sum
+!*.go
+!internal/**
+!cmd/**
+!pkg/**
+!Dockerfile
+!authorized_keys
+
+# Never send local Git history or secrets into the build context
+.git
+.github
+ssh/
+*.pem
+*.key
+*.env
