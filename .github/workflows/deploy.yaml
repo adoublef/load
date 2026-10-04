@@ -16,6 +16,8 @@ jobs:
           registry: dhi.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PAT }}
+      - name: Show logged-in registries
+        run: jq '.auths | keys' ~/.docker/config.json
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy
         env:
