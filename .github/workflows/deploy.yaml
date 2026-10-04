@@ -16,8 +16,10 @@ jobs:
           registry: dhi.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PAT }}
-      - name: Show logged-in registries
-        run: jq '.auths | keys' ~/.docker/config.json
+      # - name: Show logged-in registries
+      #   run: jq '.auths | keys' ~/.docker/config.json
+      - name: Test dhi.io pull
+        run: docker pull dhi.io/golang:1.27-dev
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy
         env:
