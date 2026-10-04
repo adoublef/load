@@ -11,17 +11,31 @@ jobs:
     concurrency: deploy-group
     steps:
       - uses: actions/checkout@v6
+
       - uses: docker/login-action@v4
         with:
           registry: dhi.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PAT }}
-      # - name: Show logged-in registries
-      #   run: jq '.auths | keys' ~/.docker/config.json
-      - name: Test dhi.io pull
-        run: docker pull dhi.io/golang:1.27-dev
+
       - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Log in to Fly registry
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: flyctl auth docker
+
+      - uses: docker/setup-buildx-action@v4
+
+      - uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: true
+          tags: registry.fly.io/load:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
       - name: Deploy
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-        run: flyctl deploy --local-only
+        run: flyctl deploy --image registry.fly.io/load:${{ github.sha }}
