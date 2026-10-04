@@ -1,7 +1,7 @@
 # -------------------------------------------------------------
 # Stage 1: Build binary & fetch keys (Hardened Go Dev image)
 # -------------------------------------------------------------
-FROM dhi.io/golang:1.24-dev AS builder
+FROM dhi.io/golang:1.27-dev AS builder
 
 WORKDIR /src
 
@@ -31,7 +31,7 @@ RUN mkdir -p /data/ssh && chown -R 65532:65532 /data/ssh /etc/authorized_keys
 # -------------------------------------------------------------
 # Stage 2: Docker Hardened Static Runtime (Zero-CVE, distroless)
 # -------------------------------------------------------------
-FROM dhi.io/static:latest
+FROM dhi.io/static:20250419
 
 WORKDIR /
 
