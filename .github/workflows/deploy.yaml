@@ -8,7 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: production
     concurrency: deploy-group
     steps:
       - uses: actions/checkout@v6
