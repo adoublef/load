@@ -33,7 +33,7 @@ func (c *serveCmd) run(ctx context.Context) error {
 		wish.WithAddress(net.JoinHostPort(c.host, c.port)),
 		wish.WithHostKeyPath(c.hostKeyPath),
 		// Reads and validates against all public keys in the authorized_keys file
-		// wish.WithAuthorizedKeys(c.authorizedKeysPath),
+		wish.WithAuthorizedKeys(c.authorizedKeysPath),
 		wish.WithMiddleware(ssh.Middleware(), logging.Middleware()))
 	if err != nil {
 		return fmt.Errorf("new server: %v", err)
