@@ -18,12 +18,14 @@ RUN CGO_ENABLED=0 GOOS=linux go build \
 
 # Fetch public keys for GitHub users at build time
 ARG GITHUB_USERS="adoublef"
-RUN touch /etc/authorized_keys && \
-    for user in $(echo $GITHUB_USERS | tr "," "\n"); do \
-        echo "Fetching keys for ${user}..."; \
-        curl -fsSL "https://github.com/${user}.keys" >> /etc/authorized_keys; \
-        echo "" >> /etc/authorized_keys; \
-    done
+RUN set -eu; \
+    : > /etc/authorized_keys; \
+    for user in $(echo "$GITHUB_USERS" | tr "," " "); do \
+      echo "Fetching keys for ${user}..."; \
+      curl -fsSL "https://github.com/${user}.keys" >> /etc/authorized_keys; \
+      echo >> /etc/authorized_keys; \
+    done; \
+    grep -q '[^[:space:]]' /etc/authorized_keys
 
 # Prepare persistent SSH host key directory with non-root ownership
 RUN mkdir -p /data/ssh && chown -R 65532:65532 /data/ssh /etc/authorized_keys
