@@ -5,6 +5,10 @@ FROM dhi.io/golang:1.27-dev AS builder
 
 WORKDIR /src
 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
 # Download dependencies
 COPY go.mod go.sum ./
 RUN go mod download
