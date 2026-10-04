@@ -2,20 +2,20 @@
 # Allowlist pattern (Ignore everything, allow specific files)
 # -------------------------------------------------------------
 
-# 1. Ignore everything by default
-*
+# 1. Ignore everything in the root
+/*
 
-# 2. Re-include directories so Git can traverse into them
-!*/
+# 2. Allow all directories so Git can traverse into subdirectories
+!/**/
 
-# 3. Re-include version control & project metadata
+# 3. Track version control & project metadata
 !.gitignore
 !.dockerignore
 !fly.toml
 !README.md
 !.github/**
 
-# 4. Re-include Go source code & modules
+# 4. Track Go source code & modules
 !go.mod
 !go.sum
 !*.go
@@ -23,12 +23,12 @@
 !cmd/**
 !pkg/**
 
-# 5. Re-include container definitions
+# 5. Track container definitions
 !Dockerfile
 !authorized_keys
 
-# Safety rules: Never track local private keys or environment files
-ssh/
+# Safety rules: Ignore root host keys or local environment files
+/ssh/
 *.pem
 *.key
 *.env
