@@ -3,7 +3,6 @@ module load.adoublef.dev
 go 1.27.0
 
 require (
-	charm.land/log/v2 v2.0.1
 	charm.land/ssh v0.4.3
 	charm.land/wish/v2 v2.0.5
 	golang.org/x/sync v0.23.0
@@ -12,6 +11,7 @@ require (
 require (
 	charm.land/bubbletea/v2 v2.0.10 // indirect
 	charm.land/lipgloss/v2 v2.0.6 // indirect
+	charm.land/log/v2 v2.0.1 // indirect
 	github.com/anmitsu/go-shlex v0.0.0-20200514113438-38f4b401e2be // indirect
 	github.com/charmbracelet/colorprofile v0.4.3 // indirect
 	github.com/charmbracelet/keygen v0.5.4 // indirect
