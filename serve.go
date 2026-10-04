@@ -23,7 +23,7 @@ type serveCmd struct {
 }
 
 func (c *serveCmd) run(ctx context.Context) error {
-	c.host = cmp.Or(c.host, os.Getenv("HOST"), "::")
+	c.host = os.Getenv("HOST")
 	c.port = cmp.Or(c.port, os.Getenv("PORT"), "2222")
 	c.hostKeyPath = cmp.Or(c.hostKeyPath, os.Getenv("SSH_HOST_KEY_PATH"), "ssh/id_ed25519")
 	c.authorizedKeysPath = cmp.Or(c.authorizedKeysPath, os.Getenv("AUTHORIZED_KEYS_PATH"), "authorized_keys")
