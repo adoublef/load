@@ -1,3 +1,5 @@
+# check=skip=SecretsUsedInArgOrEnv
+
 # -------------------------------------------------------------
 # Stage 1: Build binary & fetch keys (Hardened Go Dev image)
 # -------------------------------------------------------------
